@@ -4,7 +4,7 @@
   /* Light theme - use hex values directly */
   --background: #FEFEFE;
   --foreground: #1A3C27;
-  --card: #F8FDF8;
+  --card: #FEFEFE;
   --card-foreground: #1A3C27;
   --primary: #2E7D32;
   --primary-foreground: #FEFEFE;
@@ -72,7 +72,6 @@
 }
 
 body {
-  @apply bg-background text-foreground;
   font-family:
     "Inter",
     -apple-system,
