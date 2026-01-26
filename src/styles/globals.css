@@ -1,7 +1,9 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light theme - use hex values directly */
+  /* Light theme - your colors */
   --background: #FEFEFE;
   --foreground: #1A3C27;
   --card: #FEFEFE;
@@ -22,10 +24,19 @@
   --muted-foreground: #4A6354;
   --border: #DCE3DC;
   --radius: 0.75rem;
+  --sidebar-bg: linear-gradient(to bottom, #FFFFFF 0%, #F8FDF8 100%);
+  /* Shadcn extras */
+  --popover: #FEFEFE;
+  --popover-foreground: #1A3C27;
+  --accent: #F0F4F0;
+  --accent-foreground: #1A3C27;
+  --destructive: #F44336;
+  --input: #DCE3DC;
+  --ring: #2E7D32;
 }
 
 .dark {
-  /* Dark theme - hex values */
+  /* Dark theme - your colors */
   --background: #121212;
   --foreground: #FEFEFE;
   --card: #1A2521;
@@ -45,10 +56,19 @@
   --muted: #28322D;
   --muted-foreground: #B8D0BA;
   --border: #32413A;
+   --sidebar-bg: linear-gradient(to bottom, #0A150C 0%, #1A2521 100%);
+  /* Shadcn extras */
+  --popover: #1A2521;
+  --popover-foreground: #FEFEFE;
+  --accent: #28322D;
+  --accent-foreground: #FEFEFE;
+  --destructive: #F44336;
+  --input: #32413A;
+  --ring: #4CAF50;
 }
 
 @theme inline {
-  /* Direct hex colors */
+  /* Your colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -69,14 +89,30 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --radius: var(--radius);
+  --color-sidebar-bg: var(--sidebar-bg);
+  /* Shadcn extras */
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
 body {
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
