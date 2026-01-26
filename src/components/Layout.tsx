@@ -6,7 +6,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex w-full">
-      <div className={`fixed left-0 top-0 h-screen ${collapsed ? "w-20" : "w-70"}   transition-all ease-in-out duration-200 z-11`}>
+      <div
+        className={` fixed left-0 top-0 h-screen max-h-screen ${collapsed ? "w-20" : "w-70"}   transition-all ease-in-out duration-200 z-11 `}
+      >
         <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       </div>
       <div className="flex flex-col w-full">

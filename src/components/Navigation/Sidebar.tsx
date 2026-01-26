@@ -101,6 +101,7 @@ export default function Sidebar({
       label: "Settings",
       href: "/settings",
     },
+    
   ];
 
   const router = useRouter();
@@ -115,6 +116,7 @@ export default function Sidebar({
   
         transition-all ease-in-out duration-200
         flex flex-col
+        overflow-hidden
 
 `}
       style={{
@@ -152,62 +154,64 @@ export default function Sidebar({
 
       <div className="flex flex-col justify-between flex-1 overflow-hidden">
         {/* Navigation */}
-        <Accordion type="single" collapsible>
-          <div className="flex flex-col pt-3 gap-1.5 overflow-y-auto flex-1">
-            {menuItems.map((item, index) => (
-              <div key={index} className="px-3">
-                {item.subItems ? (
-                  <AccordionItem value={item.label}>
-                    <AccordionTrigger className="p-0" collapsed={collapsed}>
-                      {" "}
-                      <div
-                        className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
-                      >
-                        <span>{item.icon}</span>
-                        {!collapsed && (
-                          <span className="text-sm font-medium text-muted-foreground">
-                            {item.label}
-                          </span>
-                        )}
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="border-0">
-                      <div className="flex flex-col pl-11 gap-.5 py-1">
-                        {item.subItems.map((subItem) => (
-                          <Link
-                            key={subItem.label}
-                            href={subItem.href}
-                            className="border-l border-muted-foreground pl-1 text-muted-foreground flex items-center gap-1 group"
-                          >
-                            <div className="w-2 border-t border-muted-foreground "></div>
-                            <p className="group-hover:text-primary/80">
-                              {subItem.label}
-                            </p>
-                          </Link>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ) : (
-                  <Link
-                    href={item.href!}
-                    className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
-                  >
-                    <span>{item.icon}</span>
-                    {!collapsed && (
-                      <span className="text-sm font-medium text-muted-foreground">
-                        {item.label}
-                      </span>
-                    )}
-                  </Link>
-                )}
-              </div>
-            ))}
-          </div>
-        </Accordion>
+
+          <Accordion type="single" collapsible className="h-full flex-1 overflow-y-auto">
+            <div className="flex flex-col pt-3 gap-1.5 h-full">
+              {menuItems.map((item, index) => (
+                <div key={index} className="px-3">
+                  {item.subItems ? (
+                    <AccordionItem value={item.label}>
+                      <AccordionTrigger className="p-0" collapsed={collapsed}>
+                        {" "}
+                        <div
+                          className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
+                        >
+                          <span>{item.icon}</span>
+                          {!collapsed && (
+                            <span className="text-sm font-medium text-muted-foreground">
+                              {item.label}
+                            </span>
+                          )}
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="border-0">
+                        <div className="flex flex-col pl-11 gap-.5 py-1">
+                          {item.subItems.map((subItem) => (
+                            <Link
+                              key={subItem.label}
+                              href={subItem.href}
+                              className="border-l border-muted-foreground pl-1 text-muted-foreground flex items-center gap-1 group"
+                            >
+                              <div className="w-2 border-t border-muted-foreground "></div>
+                              <p className="group-hover:text-primary/80">
+                                {subItem.label}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ) : (
+                    <Link
+                      href={item.href!}
+                      className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
+                    >
+                      <span>{item.icon}</span>
+                      {!collapsed && (
+                        <span className="text-sm font-medium text-muted-foreground">
+                          {item.label}
+                        </span>
+                      )}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Accordion>
+
 
         {/* tagline */}
-        <div className="flex flex-col justify-center py-7 border-t border-border">
+        <div className="flex flex-col justify-center py-7 border border-border">
           {!collapsed ? (
             <div className="text-center">
               <p className="text-xs text-muted-foreground italic">
@@ -215,6 +219,9 @@ export default function Sidebar({
               </p>
               <p className="text-[10px] text-muted-foreground/60 mt-1">
                 Circular Inventory Management
+              </p>
+              <p className="text-[9px] text-muted-foreground/40 mt-2">
+                © 2026 Bulilan
               </p>
             </div>
           ) : (
