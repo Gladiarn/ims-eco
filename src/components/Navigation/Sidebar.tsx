@@ -22,6 +22,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Sidebar({
   collapsed,
@@ -101,11 +102,15 @@ export default function Sidebar({
       label: "Settings",
       href: "/settings",
     },
-    
   ];
-
   const router = useRouter();
   const pathname = router.pathname;
+  const [accordionValue, setAccordionValue] = useState<string>("");
+
+  const collapseTrigger = () => {
+    setCollapsed(!collapsed);
+    setAccordionValue("");
+  };
 
   return (
     <div
@@ -142,7 +147,7 @@ export default function Sidebar({
         </div>
         <div
           className="p-1.5 rounded-full bg-primary/5 cursor-pointer hover:bg-primary/15 transition-colors ease-in-out duration-200"
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => collapseTrigger()}
         >
           {collapsed ? (
             <RiMenuUnfold3Line className="size-5 text-muted-foreground" />
@@ -155,60 +160,69 @@ export default function Sidebar({
       <div className="flex flex-col justify-between flex-1 overflow-hidden">
         {/* Navigation */}
 
-          <Accordion type="single" collapsible className="h-full flex-1 overflow-y-auto">
-            <div className="flex flex-col pt-3 gap-1.5 h-full">
-              {menuItems.map((item, index) => (
-                <div key={index} className="px-3">
-                  {item.subItems ? (
-                    <AccordionItem value={item.label}>
-                      <AccordionTrigger className="p-0" collapsed={collapsed}>
-                        {" "}
-                        <div
-                          className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
-                        >
-                          <span>{item.icon}</span>
-                          {!collapsed && (
-                            <span className="text-sm font-medium text-muted-foreground">
-                              {item.label}
-                            </span>
-                          )}
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="border-0">
-                        <div className="flex flex-col pl-11 gap-.5 py-1">
-                          {item.subItems.map((subItem) => (
-                            <Link
-                              key={subItem.label}
-                              href={subItem.href}
-                              className="border-l border-muted-foreground pl-1 text-muted-foreground flex items-center gap-1 group"
-                            >
-                              <div className="w-2 border-t border-muted-foreground "></div>
-                              <p className="group-hover:text-primary/80">
-                                {subItem.label}
-                              </p>
-                            </Link>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ) : (
-                    <Link
-                      href={item.href!}
-                      className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
+        <Accordion
+          type="single"
+          collapsible
+          className="h-full flex-1 overflow-y-auto"
+          value={accordionValue}
+          onValueChange={setAccordionValue}
+        >
+          <div className="flex flex-col pt-3 gap-1.5 h-full">
+            {menuItems.map((item, index) => (
+              <div key={index} className="px-3">
+                {item.subItems ? (
+                  <AccordionItem value={item.label}>
+                    <AccordionTrigger
+                      className="p-0"
+                      collapsed={collapsed}
+                      onClick={() => collapsed && setCollapsed(false)}
                     >
-                      <span>{item.icon}</span>
-                      {!collapsed && (
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {item.label}
-                        </span>
-                      )}
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Accordion>
-
+                      {" "}
+                      <div
+                        className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
+                      >
+                        <span>{item.icon}</span>
+                        {!collapsed && (
+                          <span className="text-sm font-medium text-muted-foreground">
+                            {item.label}
+                          </span>
+                        )}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="border-0">
+                      <div className="flex flex-col pl-11 gap-.5 py-1">
+                        {item.subItems.map((subItem) => (
+                          <Link
+                            key={subItem.label}
+                            href={subItem.href}
+                            className="border-l border-muted-foreground pl-1 text-muted-foreground flex items-center gap-1 group"
+                          >
+                            <div className="w-2 border-t border-muted-foreground "></div>
+                            <p className="group-hover:text-primary/80">
+                              {subItem.label}
+                            </p>
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ) : (
+                  <Link
+                    href={item.href!}
+                    className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
+                  >
+                    <span>{item.icon}</span>
+                    {!collapsed && (
+                      <span className="text-sm font-medium text-muted-foreground">
+                        {item.label}
+                      </span>
+                    )}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+        </Accordion>
 
         {/* tagline */}
         <div className="flex flex-col justify-center py-7 border border-border">
