@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex flex-col w-full">
         <Navbar collapsed={collapsed} />
-        <main className={`min-h-screen bg-[#EEEEEE]`}>{children}</main>
+        <main className={`min-h-screen bg-[#EEEEEE] ${collapsed ? "pl-20" : "pl-70"}`}>{children}</main>
       </div>
     </div>
   );
