@@ -62,11 +62,11 @@ export default function DashboardCard({ stat }: { stat: DashboardStat }) {
   };
 
   return (
-    <div className="w-full border-l-3 border-primary px-5 p-3 rounded-md bg-card flex flex-col gap-1 h-fit">
+    <div className="w-full border-l-3 border-primary px-5 p-3 rounded-md bg-card flex flex-col h-fit">
       {/* Top row*/}
       <div className="flex items-center gap-3">
         {/* Icon*/}
-        <div className={`p-2 ${colors.bg} rounded-lg`}>
+        <div className={`p-2 ${colors.bg} rounded-md`}>
           {getIcon(stat.title, colors.text)}
         </div>
 

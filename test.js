@@ -1,23 +1,18 @@
-function isBalanced(parentheses) {
-  let stack = [];
-  let opening = new Set(["(", "{", "["]);
-  let closing = new Set([")", "}", "]"]);
-  let matches = {
-    ")": "(",
-    "}": "{",
-    "]": "[",
-  };
-  for (let char of parentheses) {
-    if (opening.has(char)) {
-      stack.push(char);
-    } else if (closing.has(char)) {
-      if (stack.length === 0 || stack[stack.length -1] !== matches[char]) {
-        return false;
-      }
-      stack.pop();
+function FirstFactorial(num) { 
+let sum = 0;
+let firstLoop = true;
+  for(let i = num; i > 1; i--){
+    if(firstLoop){
+      sum  = i * (i-1);
+      firstLoop = false;
+      continue
     }
+    sum = sum * (i - 1);
   }
-  return stack.length === 0;
-}
 
-console.log(isBalanced("[3+5 x ((4-1) - 39)]"));
+return sum;
+
+}
+   
+// keep this function call here 
+console.log(FirstFactorial(5));

@@ -1,5 +1,11 @@
 import { useTheme } from "next-themes";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import {
   MdDashboard,
   MdInventory,
   MdRecycling,
@@ -10,6 +16,7 @@ import {
   MdWarehouse,
   MdAssessment,
   MdReceipt,
+  MdAnalytics,
 } from "react-icons/md";
 import { RiMenuUnfold4Line, RiMenuUnfold3Line } from "react-icons/ri";
 import { FaLeaf } from "react-icons/fa";
@@ -39,63 +46,86 @@ export default function Sidebar({
       label: "Dashboard",
       href: "/",
     },
+    // CORE INVENTORY OPERATIONS
     {
       icon: <MdInventory className="text-muted-foreground size-6" />,
       label: "Inventory",
       subItems: [
-        { label: "Raw Materials", href: "/inventory/raw" },
-        { label: "Finished Goods", href: "/inventory/finished" },
-        { label: "Refurbished", href: "/inventory/refurbished" },
-        { label: "Recycled", href: "/inventory/recycled" },
+        { label: "All Products", href: "/inventory/products" },
+        { label: "By Warehouse", href: "/inventory/warehouse-view" },
+        { label: "Low Stock", href: "/inventory/low-stock" },
+        { label: "Categories", href: "/inventory/categories" },
       ],
-    },
-    {
-      icon: <MdRecycling className="text-muted-foreground size-6" />,
-      label: "Circular Flow",
-      href: "/circular",
-    },
-    {
-      icon: <MdEco className="text-muted-foreground size-6" />,
-      label: "Carbon Track",
-      subItems: [
-        { label: "Carbon Calculator", href: "/carbon/calculator" },
-        { label: "Emissions Report", href: "/carbon/report" },
-        { label: "Offset Projects", href: "/carbon/offsets" },
-      ],
-    },
-    {
-      icon: <MdFactory className="text-muted-foreground size-6" />,
-      label: "Suppliers",
-      href: "/suppliers",
     },
     {
       icon: <MdWarehouse className="text-muted-foreground size-6" />,
-      label: "Locations",
+      label: "Warehouses",
       subItems: [
-        { label: "Warehouses", href: "/locations/warehouses" },
-        { label: "Retail Stores", href: "/locations/stores" },
-        { label: "Collection Centers", href: "/locations/collection" },
+        { label: "All Locations", href: "/warehouses" },
+        { label: "Transfer Stock", href: "/warehouses/transfers" },
+        { label: "Stock Count", href: "/warehouses/stock-count" },
+        { label: "Location Setup", href: "/warehouses/setup" },
       ],
     },
-    {
-      icon: <MdAssessment className="text-muted-foreground size-6" />,
-      label: "Analytics",
-      href: "/analytics",
-    },
+    // MOVEMENT & TRANSACTIONS
     {
       icon: <MdReceipt className="text-muted-foreground size-6" />,
+      label: "Transactions",
+      subItems: [
+        { label: "Stock In", href: "/transactions/in" },
+        { label: "Stock Out", href: "/transactions/out" },
+        { label: "Adjustments", href: "/transactions/adjust" },
+        { label: "View All", href: "/transactions" },
+      ],
+    },
+    // ORDERS & FULFILLMENT
+    {
+      icon: <MdAssessment className="text-muted-foreground size-6" />,
       label: "Orders",
       subItems: [
         { label: "New Orders", href: "/orders/new" },
-        { label: "Processing", href: "/orders/processing" },
-        { label: "Completed", href: "/orders/completed" },
+        { label: "To Fulfill", href: "/orders/fulfill" },
+        { label: "By Warehouse", href: "/orders/by-warehouse" },
         { label: "Returns", href: "/orders/returns" },
       ],
     },
+    // SUPPLY CHAIN
+    {
+      icon: <MdFactory className="text-muted-foreground size-6" />,
+      label: "Supply Chain",
+      subItems: [
+        { label: "Suppliers", href: "/supply/suppliers" },
+        { label: "Purchase Orders", href: "/supply/purchase-orders" },
+        { label: "Deliveries", href: "/supply/deliveries" },
+        { label: "Reordering", href: "/supply/reorder" },
+      ],
+    },
+    // ANALYTICS & REPORTS
+    {
+      icon: <MdAnalytics className="text-muted-foreground size-6" />,
+      label: "Analytics",
+      subItems: [
+        { label: "Dashboard", href: "/analytics" },
+        { label: "Stock Value", href: "/analytics/valuation" },
+        { label: "Turnover Rate", href: "/analytics/turnover" },
+        { label: "Warehouse Performance", href: "/analytics/warehouse" },
+      ],
+    },
+    // ECO-CYCLE SPECIFIC
+    {
+      icon: <MdEco className="text-muted-foreground size-6" />,
+      label: "Sustainability",
+      subItems: [
+        { label: "Carbon Impact", href: "/sustainability/carbon" },
+        { label: "Recycling Stats", href: "/sustainability/recycling" },
+        { label: "Material Flow", href: "/sustainability/material-flow" },
+      ],
+    },
+    // ADMINISTRATION
     {
       icon: <MdPeople className="text-muted-foreground size-6" />,
-      label: "Customers",
-      href: "/customers",
+      label: "Team",
+      href: "/team",
     },
     {
       icon: <MdSettings className="text-muted-foreground size-6" />,
@@ -177,17 +207,25 @@ export default function Sidebar({
                       collapsed={collapsed}
                       onClick={() => collapsed && setCollapsed(false)}
                     >
-                      {" "}
-                      <div
-                        className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
-                      >
-                        <span>{item.icon}</span>
-                        {!collapsed && (
-                          <span className="text-sm font-medium text-muted-foreground">
+                      <Tooltip disableHoverableContent open={collapsed ? undefined : false}>
+                        <TooltipTrigger asChild>
+                          <div
+                            className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
+                          >
+                            <span>{item.icon}</span>
+                            {!collapsed && (
+                              <span className="text-sm font-medium text-muted-foreground">
+                                {item.label}
+                              </span>
+                            )}
+                          </div>
+                        </TooltipTrigger>
+                        {collapsed && (
+                          <TooltipContent side="right">
                             {item.label}
-                          </span>
+                          </TooltipContent>
                         )}
-                      </div>
+                      </Tooltip>
                     </AccordionTrigger>
                     <AccordionContent className="border-0">
                       <div className="flex flex-col pl-11 gap-.5 py-1">
@@ -207,17 +245,28 @@ export default function Sidebar({
                     </AccordionContent>
                   </AccordionItem>
                 ) : (
-                  <Link
-                    href={item.href!}
-                    className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
-                  >
-                    <span>{item.icon}</span>
-                    {!collapsed && (
-                      <span className="text-sm font-medium text-muted-foreground">
+                  <Tooltip disableHoverableContent open={collapsed ? undefined : false} >
+                    <TooltipTrigger asChild>
+                      <div>
+                        <Link
+                          href={item.href!}
+                          className={`${pathname === item.href ? "bg-primary/10 pl-5" : "hover:bg-primary/10 hover:pl-5"} flex gap-3.5 items-center w-full rounded-lg p-3 transition-all ease-in-out duration-200 cursor-pointer`}
+                        >
+                          <span>{item.icon}</span>
+                          {!collapsed && (
+                            <span className="text-sm font-medium text-muted-foreground">
+                              {item.label}
+                            </span>
+                          )}
+                        </Link>
+                      </div>
+                    </TooltipTrigger>
+                    {collapsed && (
+                      <TooltipContent side="right">
                         {item.label}
-                      </span>
+                      </TooltipContent>
                     )}
-                  </Link>
+                  </Tooltip>
                 )}
               </div>
             ))}
