@@ -274,7 +274,7 @@ export default function Sidebar({
         </Accordion>
 
         {/* tagline */}
-        <div className="flex flex-col justify-center py-7 border border-border">
+        <div className="flex flex-col justify-center py-7 border-t border-border">
           {!collapsed ? (
             <div className="text-center">
               <p className="text-xs text-muted-foreground italic">
