@@ -60,7 +60,7 @@ EcoCycle struggles with:
    - Purchase Orders Management ✓
    - Deliveries Management ✓
 
-### Warehouse Operations Modules (NEWLY COMPLETED)
+### Warehouse Operations Modules (COMPLETED)
 8. **Transfer Module** - Service, Controller, Routes ✓
    - Inter-warehouse stock movements
    - Transfer workflow (PENDING → COMPLETED)
@@ -74,31 +74,56 @@ EcoCycle struggles with:
    - Workflow (PENDING → REVIEWED → ADJUSTED)
    - Automatic transaction creation on adjustment
 
+### Sustainability Modules (NEWLY COMPLETED)
+10. **Sustainability Module** - Service, Controller, Routes ✓
+    - **Carbon Tracking** - `/sustainability/carbon`
+      - Track emissions by scope (SCOPE_1, SCOPE_2, SCOPE_3)
+      - Monitor by category (TRANSPORT, ENERGY, WASTE, MATERIALS)
+      - Source tracking for warehouses and transfers
+    
+    - **Recycling Records** - `/sustainability/recycling`
+      - Track circular economy flows
+      - Record by type (PLASTIC, PAPER, METAL, ELECTRONIC, ORGANIC)
+      - Calculate carbon saved and landfill diverted
+      - Method tracking (MECHANICAL, CHEMICAL, COMPOSTING)
+    
+    - **Material Flow** - `/sustainability/material-flow`
+      - Track material inputs/outputs
+      - Categorize flows (INPUT, OUTPUT, WASTE, RECYCLED)
+      - Source and destination tracking
+      - Material flow analysis
+
+    - **Sustainability Dashboard** - `/sustainability/dashboard`
+      - Combined metrics for all sustainability data
+      - Warehouse-specific summaries
+      - Real-time impact tracking
+
 ## 🔄 IN DEVELOPMENT
 1. **Authentication Middleware** - JWT validation with Supabase
 2. **Seed Data** - Sample data for testing
 
 ## ⬜ PENDING MODULES
 
-### Sustainability Modules
-1. **Carbon Tracking Module** - Carbon impact monitoring
-2. **Recycling Module** - Circular economy flows
-3. **Material Flow Module** - Material analysis
-
 ### Administration Modules
-4. **User Management Module** - Staff authentication & roles
-5. **System Settings Module** - Application configuration
-6. **Audit Log Module** - Change tracking
+1. **User Management Module** - Staff authentication & roles (User model)
+2. **System Settings Module** - Application configuration (SystemSetting model)
+3. **Audit Log Module** - Change tracking (AuditLog model)
 
 ### Analytics & Reports
-7. **Analytics Module** - Stock value, turnover rates
-8. **Dashboard Module** - Main dashboard with KPIs
+4. **Analytics Module** - Stock value, turnover rates
+5. **Dashboard Module** - Main dashboard with KPIs
 
 ### Integration & Deployment
-9. **Frontend Integration** - Connect Next.js frontend
-10. **API Documentation** - Swagger/OpenAPI docs
-11. **Testing Suite** - Unit and integration tests
-12. **Deployment Configuration** - Docker, CI/CD
+6. **Frontend Integration** - Connect Next.js frontend
+7. **API Documentation** - Swagger/OpenAPI docs
+8. **Testing Suite** - Unit and integration tests
+9. **Deployment Configuration** - Docker, CI/CD
+
+## 📊 PROGRESS SUMMARY
+- **Total Models:** 17
+- **Completed Modules:** 10 (covering 14 models)
+- **Remaining Models:** 3 (User, SystemSetting, AuditLog)
+- **Completion Status:** 82% of backend complete
 
 ## 🔄 API Design Pattern
 ```typescript
