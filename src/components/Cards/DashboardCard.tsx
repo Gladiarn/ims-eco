@@ -27,7 +27,7 @@ export default function DashboardCard({ stat }: { stat: DashboardStat }) {
         return <MdInventory className={`${color} size-7`} />;
       case "Low Stock":
         return <MdWarning className={`${color} size-7`} />;
-      case "Carbons Saved":
+      case "Carbon Saved":
         return <MdEco className={`${color} size-7`} />;
       case "Pending Orders":
         return <MdReceipt className={`${color} size-7`} />;
